@@ -24,6 +24,15 @@ class CalculatorREPL:
                 break
             elif user_input.lower() == 'plugins':
                 self.list_plugins()
+            elif user_input.lower() == 'load history':
+                self.load_history()
+            elif user_input.lower() == 'save history':
+                self.save_history()
+            elif user_input.lower() == 'clear history':
+                self.clear_history()
+            elif user_input.lower().startswith('delete'):
+                index = int(user_input.split(' ')[1])
+                self.delete_history_record(index)
             elif user_input.lower().startswith('load'):
                 plugin_name = user_input.split(' ')[1]
                 self.load_plugin(plugin_name)
@@ -39,9 +48,6 @@ class CalculatorREPL:
             return result
         except Exception as e:
             return f"Error: {e}"
-
-    def save_history(self):
-        self.history_df.to_csv(self.history_file, index=False)
 
     def list_plugins(self):
         plugin_dir = os.path.join(os.path.dirname(__file__), 'plugins')
@@ -64,3 +70,28 @@ class CalculatorREPL:
     def update_history_df(self, user_input, result):
         new_entry = pd.DataFrame({'Expression': [user_input], 'Result': [result]})
         self.history_df = pd.concat([self.history_df, new_entry], ignore_index=True)
+
+    def load_history(self):
+        try:
+            self.history_df = pd.read_csv(self.history_file)
+            print("History loaded successfully.")
+            print("Loaded history:")
+            print(self.history_df)
+        except FileNotFoundError:
+            print("No history file found.")
+
+
+    def save_history(self):
+        self.history_df.to_csv(self.history_file, index=False)
+        print("History saved successfully.")
+
+    def clear_history(self):
+        self.history_df = pd.DataFrame(columns=['Expression', 'Result'])
+        print("History cleared.")
+
+    def delete_history_record(self, index):
+        try:
+            self.history_df.drop(index=index, inplace=True)
+            print("History record deleted successfully.")
+        except KeyError:
+            print("Invalid index. No record found.")
