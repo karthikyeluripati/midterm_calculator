@@ -1,4 +1,5 @@
-# plugins/multiplication_plugin.py
-
-def multiply(x, y):
-    return x * y
+# multiplication_plugin.py
+class MultiplicationPlugin:
+    @staticmethod
+    def perform_operation(x, y):
+        return x * y

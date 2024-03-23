@@ -1,4 +1,5 @@
-# plugins/addition_plugin.py
-
-def add(x, y):
-    return x + y
+# addition_plugin.py
+class AdditionPlugin:
+    @staticmethod
+    def perform_operation(x, y):
+        return x + y
