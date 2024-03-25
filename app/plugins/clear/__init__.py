@@ -1,6 +1,7 @@
 from app.commands import Command
 import pandas as pd
 import os
+import logging
 
 class ClearHistoryCommand(Command):
     def execute(self):
@@ -14,3 +15,4 @@ class ClearHistoryCommand(Command):
             print("History cleared successfully.")
         except Exception as e:
             print(f"An error occurred while clearing the history: {e}")
+            logging.info("Cleared History")

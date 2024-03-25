@@ -3,6 +3,7 @@
 from app.commands import Command
 import pandas as pd
 import os
+import logging
 
 class DeleteHistoryCommand(Command):
     def execute(self):
@@ -18,5 +19,6 @@ class DeleteHistoryCommand(Command):
             history_df = history_df.reset_index(drop=True)  # Reset index after dropping row
             history_df.to_csv(history_file, index=False)
             print(f"Entry at index {index} deleted successfully.")
+            logging.info(f"Delete {index} index from the History")
         except Exception as e:
             print(f"An error occurred while deleting the entry: {e}")

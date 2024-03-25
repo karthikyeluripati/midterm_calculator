@@ -1,6 +1,7 @@
 from app.commands import Command
 import pandas as pd
 import os
+import logging
 
 class LoadCommand(Command):
     def execute(self):
@@ -10,5 +11,6 @@ class LoadCommand(Command):
             print("History loaded successfully.")
             print("Loaded history:")
             print(self.history_df)
+            logging.info("Loaded History")
         except FileNotFoundError:
             print("No history file found.")

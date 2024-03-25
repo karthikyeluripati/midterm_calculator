@@ -1,4 +1,5 @@
 from app.commands import Command
+import logging
 
 class DivideCommand(Command):
     def execute(self):
@@ -7,5 +8,6 @@ class DivideCommand(Command):
         try:
                 result= num1/num2
                 print(result)
+                logging.info("Performed Division")
         except ZeroDivisionError:
                 print("Error: Cannot divide by zero.")
