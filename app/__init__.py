@@ -2,10 +2,18 @@ import pkgutil
 import importlib
 from app.commands import CommandHandler
 from app.commands import Command
+import pandas as pd
+import os
 
 class App:
     def __init__(self): # Constructor
         self.command_handler = CommandHandler()
+        self.history = []
+        self.history_file = './app/history.csv'
+        if os.path.exists(self.history_file) and os.path.getsize(self.history_file) > 0:
+            self.history_df = pd.read_csv(self.history_file)
+        else:
+            self.history_df = pd.DataFrame(columns=['Expression', 'Result'])
 
     def load_plugins(self):
         # Dynamically load all plugins in the plugins directory
@@ -20,11 +28,21 @@ class App:
                             self.command_handler.register_command(plugin_name, item())
                     except TypeError:
                         continue  # If item is not a class or unrelated class, just ignore
+
     def start(self):
-        # Register commands here
+    # Register commands here
         self.load_plugins()
         print("Type 'exit' to exit.")
         while True:  #REPL Read, Evaluate, Print, Loop
-            self.command_handler.execute_command(input(">>> ").strip())
+            user_input = input(">>> ")
+            self.command_handler.execute_command(user_input.strip())
+            self.history.append((user_input))
+            self.update_history_df(user_input)
+            self.save_history()  # Save history after each update
 
+    def save_history(self):
+        self.history_df.to_csv(self.history_file, index=False)
 
+    def update_history_df(self, user_input):
+        new_entry = pd.DataFrame({'Expression': [user_input]})
+        self.history_df = pd.concat([self.history_df, new_entry], ignore_index=True)
