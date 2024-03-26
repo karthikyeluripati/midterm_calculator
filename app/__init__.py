@@ -16,12 +16,6 @@ class App:
         self.settings = self.load_environment_variables()
         self.settings.setdefault('ENVIRONMENT', 'PRODUCTION')
         self.command_handler = CommandHandler()
-        self.history = []
-        self.history_file = './app/history.csv'
-        if os.path.exists(self.history_file) and os.path.getsize(self.history_file) > 0:
-            self.history_df = pd.read_csv(self.history_file)
-        else:
-            self.history_df = pd.DataFrame(columns=['Expression', 'Result'])
 
     def configure_logging(self):
         logging_conf_path = 'logging.conf'
@@ -61,14 +55,3 @@ class App:
         while True:  #REPL Read, Evaluate, Print, Loop
             user_input = input(">>> ")
             self.command_handler.execute_command(user_input.strip())
-            self.history.append((user_input))
-            self.update_history_df(user_input)
-            self.save_history()  # Save history after each update
-
-    def save_history(self):
-        self.history_df.to_csv(self.history_file, index=False)
-
-    def update_history_df(self, user_input):
-        new_entry = pd.DataFrame({'Expression': [user_input]})
-        self.history_df = pd.concat([self.history_df, new_entry], ignore_index=True)
-        logging.info("Updated History")
