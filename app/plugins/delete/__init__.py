@@ -1,7 +1,7 @@
 from app.commands import Command
 import logging
 import pandas as pd
-class LoadHistoryCommand(Command):
+class DeleteHistoryCommand(Command):
     def execute(self):
         try:    
             # Assuming your history file is in CSV format
