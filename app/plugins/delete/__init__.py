@@ -3,7 +3,7 @@ import logging
 import pandas as pd
 class LoadHistoryCommand(Command):
     def execute(self):
-        try:
+        try:    
             # Assuming your history file is in CSV format
             history_file_path = "./app/history.csv"
             # Load the history file into a pandas DataFrame
@@ -18,7 +18,7 @@ class LoadHistoryCommand(Command):
                 print(history_df)
                 history_df.to_csv("./app/history.csv", mode="w", index=False)
                 logging.info(f"updated history after deleting index {index}")
-            except:
-                logging.info(f"Invalid index: {index}")
+            except IndexError:
+                logging.error(f"Invalid index: {index}")
         except:
-            logging.error("Parsing data error")
+            logging.error(f"Invalid input")
