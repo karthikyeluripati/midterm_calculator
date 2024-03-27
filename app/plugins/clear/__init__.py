@@ -1,18 +1,12 @@
 from app.commands import Command
-import pandas as pd
-import os
 import logging
-
-class ClearHistoryCommand(Command):
+import pandas as pd
+class ClearCommand(Command):
     def execute(self):
-        history_file = './app/history.csv'
-        if not os.path.exists(history_file) or os.path.getsize(history_file) == 0:
-            print("History is already empty.")
-            return
-
-        try:
-            os.remove(history_file)
-            print("History cleared successfully.")
-        except Exception as e:
-            print(f"An error occurred while clearing the history: {e}")
-            logging.info("Cleared History")
+        f = open("./app/history.csv", "w")
+        f.truncate()
+        f.close()
+        logging.info("History Deleted")
+        df = pd.DataFrame(columns=["Expression", "num1", "num2","Result"])
+        df.to_csv("./app/history.csv", index=False)
+        logging.info("History Header updated")

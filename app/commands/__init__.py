@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+import logging
 
 class Command(ABC):
     @abstractmethod
@@ -15,5 +16,7 @@ class CommandHandler:
     def execute_command(self, command_name: str):
         try:
             self.commands[command_name].execute()
+            logging.info(f"{command_name} operation complete")
         except KeyError:
             print(f"No such command: {command_name}")
+            logging.error("Invalid input provided")

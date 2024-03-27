@@ -1,16 +1,15 @@
 from app.commands import Command
-import pandas as pd
-import os
 import logging
-
-class LoadCommand(Command):
+import pandas as pd
+class LoadHistoryCommand(Command):
     def execute(self):
-        self.history_file = './app/history.csv'
         try:
-            self.history_df = pd.read_csv(self.history_file)
-            print("History loaded successfully.")
-            print("Loaded history:")
-            print(self.history_df)
-            logging.info("Loaded History")
-        except FileNotFoundError:
-            print("No history file found.")
+            # Assuming your history file is in CSV format
+            history_file_path = "./app/history.csv"
+            # Load the history file into a pandas DataFrame
+            history_df = pd.read_csv(history_file_path)
+            logging.info("Loading history...")
+            print(history_df)
+            logging.info("History Loaded")
+        except:
+            logging.error("Parsing data error")

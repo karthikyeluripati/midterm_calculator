@@ -5,5 +5,5 @@ import logging
 
 class ExitCommand(Command):
     def execute(self):
-        sys.exit("Exiting...")
         logging.info("Application exit.")
+        sys.exit("Exiting...")
