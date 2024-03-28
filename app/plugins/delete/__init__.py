@@ -1,9 +1,12 @@
-from app.commands import Command
+"""Delete Operation"""
 import logging
 import pandas as pd
+from app.commands import Command
+
 class DeleteHistoryCommand(Command):
+    """Delete Operation using delete"""
     def execute(self):
-        try:    
+        try:
             # Assuming your history file is in CSV format
             history_file_path = "./app/history.csv"
             # Load the history file into a pandas DataFrame
@@ -21,4 +24,4 @@ class DeleteHistoryCommand(Command):
             except IndexError:
                 logging.error(f"Invalid index: {index}")
         except:
-            logging.error(f"Invalid input")
+            logging.error("Invalid input")

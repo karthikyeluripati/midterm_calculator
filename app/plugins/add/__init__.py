@@ -1,8 +1,10 @@
-from app.commands import Command
+"""Addition Operation"""
 import logging
 import pandas as pd
+from app.commands import Command
 
 class AddCommand(Command):
+    """AddCommand Class for add operation"""
     def execute(self):
         try:
             num1 = float(input("Enter the first number: "))
