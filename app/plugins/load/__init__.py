@@ -1,7 +1,10 @@
-from app.commands import Command
+"""Load Operation"""
 import logging
 import pandas as pd
+from app.commands import Command
+
 class LoadHistoryCommand(Command):
+    """Load Operation using load"""
     def execute(self):
         try:
             # Assuming your history file is in CSV format

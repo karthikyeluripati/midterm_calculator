@@ -1,7 +1,10 @@
-from app.commands import Command
+"""Clear Operation"""
 import logging
 import pandas as pd
+from app.commands import Command
+
 class ClearCommand(Command):
+    """Clear Operation using clear"""
     def execute(self):
         f = open("./app/history.csv", "w")
         f.truncate()
