@@ -8,6 +8,8 @@ Implemented a REPL and directly interactable calculator. This interface supports
 2. Management of calculation history.
 3. Access to extended functionalities through dynamically loaded plugins.
 
+**Video demonstration link:** https://youtu.be/9hik0Tvv-xE
+
 # Setup
 
 ## Setup Instructions
